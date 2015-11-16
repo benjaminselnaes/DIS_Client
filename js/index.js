@@ -1,3 +1,26 @@
+$(document).ready(function() {
+    $("#loginbut").click(function () {
+
+        var loginInfo = {
+            "username" : $("#username").val(),
+            "password" : $("#pass").val()
+        };
+
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:8888/api/login/",
+            "method": "POST",
+            "processData": false,
+            "data" : JSON.stringify(loginInfo)
+        };
+
+        $.ajax(settings).done(function () {
+            window.location.href="../html/UserMenu.html";
+        });
+    });
+});
+
 /*
 
 $(function () {
@@ -13,11 +36,11 @@ $(function () {
             flg.upd = 0
         }
     });
-/!*    $('#login').click(function () {
+    $('#login').click(function () {
         initub();
         $('#logmsk').fadeIn();
         ub(0)
-    });*!/
+    });
     $('#logint').click(function () {
         initub();
         if (flg.logt == 0) {
@@ -126,4 +149,5 @@ $(function () {
     function blsp() {
         $('#signupb').css('opacity', '0.2').css('cursor', 'default')
     }
-});*/
+});
+*/

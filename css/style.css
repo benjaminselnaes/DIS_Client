@@ -23,7 +23,7 @@
     margin-bottom: 1px;
 }
 
-#name, #lastname, #email, #username, #pass, #signupb {
+#name, #lastname, #email, #username, #pass, #signupbut, #loginbut {
     transition: all 0.3s ease 0s;
     -webkit-transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;
@@ -115,7 +115,7 @@
     font-size: 22px;
 }
 
-#signupb {
+#loginbut, #signupbut {
     background: #f8f8f8;
     border: 1px solid #c6c6c6;
     display: inline-block;
