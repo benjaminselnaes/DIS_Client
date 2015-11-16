@@ -73,7 +73,6 @@
     -moz-appearance: none;
     -webkit-appearance: none;
     padding: 0 8px;
-    margin: 34px auto;
     background: #fff;
     border: 1px solid #d9d9d9;
     border-top: 1px solid silver;
@@ -83,7 +82,7 @@
     color: #838383;
     width: 409px;
     display: block;
-    margin-bottom: 10px;
+    margin: 34px auto 10px;
     z-index: 1;
     position: relative;
     -moz-box-sizing: border-box;
@@ -112,30 +111,55 @@
     text-align: center;
     font-weight: normal;
     background: #76ABDB;
-    font-size: 22px;
+    border: 1px solid #76ABDA;
 }
 
 #loginbut, #signupbut {
     background: #f8f8f8;
-    border: 1px solid #c6c6c6;
     display: inline-block;
     line-height: 23px;
-    padding: 5px 18px;
+    padding: 0 8px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
     background: #f37676;
-    border-color: #E78282;
+    border: 1px solid #E78282;
     font-weight: normal;
     margin: 10px 0 0 0;
     color: #fff;
     position: absolute;
-    right: 9px;
-    bottom: 9px;
+    left: 15px;
+    bottom: 15px;
     font-size: 17px;
     width: 103px;
     height: 35px;
     outline: none;
     cursor: pointer;
+}
+
+#newgame, #viewgames, #but3, #but4 {
+    background: #f8f8f8;
+    display: block;
+    line-height: 23px;
+    padding: 5px 18px 5px 18px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #76ABDB;
+    border: 1px solid white;
+    font-weight: normal;
+    margin: 35px auto;
+    color: #fff;
+    position: relative;
+    direction: ltr;
+    width: 300px;
+    height: 39px;
+    outline: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    z-index: 1;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 16px;
 }
 
 #userbox {
