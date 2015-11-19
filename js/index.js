@@ -2,21 +2,26 @@ $(document).ready(function() {
     $("#loginbut").click(function () {
 
         var loginInfo = {
-            "username" : $("#username").val(),
+            "username" : $("#name").val(),
             "password" : $("#pass").val()
         };
 
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "http://localhost:8888/api/login/",
+            "url": "http://localhost:13337/api/login/",
             "method": "POST",
             "processData": false,
             "data" : JSON.stringify(loginInfo)
         };
 
-        $.ajax(settings).done(function () {
-            window.location.href="../html/UserMenu.html";
+        $.ajax(settings).done(function (data, status, xhr) {
+            if (xhr.status == 200) {
+                window.location.href="../html/UserMenu.html";
+            }
+            else {
+                alert("Fail");
+            }
         });
     });
 });
