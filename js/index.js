@@ -26,6 +26,29 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    $("#getgames").click(function () {
+
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:13337/api/games/open",
+            "method": "GET"
+        };
+
+/* Created by Tobias Jacobsen */
+        $.ajax(settings).done(function (response) {
+            var trHTML = '';
+            $.each(response, function (i, item) {
+                trHTML += '<tr><td>' + item.name + '</td><td>' + item.host.id + '</td><td>' +item.opponent.id + '</td><td>' + item.status +
+                    '</td><td>'+ item.winner.id;
+            });
+            $('#table').append(trHTML);
+            console.log(response);
+        });
+    });
+});
+
 /*
 
 $(function () {
