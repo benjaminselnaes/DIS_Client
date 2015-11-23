@@ -18,14 +18,24 @@
 
     <div id='close'>X</div>
 
-    <div id="menubox">
+    <div id="menubox" style="text-align: center">
 
         <h1 id="signup">Create new game</h1>
+        <form>
 
+            <input id = "gamename" type = "text" placeholder = "Game name" required>
 
+            <input id = "hostId" type = "text" placeholder = "Your Id" required>
 
-        <input id = "signupbut" type = "button" onclick = "location.href='UserMenu.html'" value = "back"/>
+            <input id = "controls" type = "text" placeholder = "Use W, A, S, D for controls" required>
 
+            <input id = "mapsize" type = "text" placeholder = "Set the desired map size" required>
+
+            <input id = "creategame" type = "button" value = "Create new game" />
+
+            <input id = "signupbut" type = "button" onclick = "location.href='Games.html'" value = "back"/>
+
+        </form>
     </div>
 </div>
 
