@@ -2,7 +2,7 @@
 <html >
 <head>
     <meta charset="UTF-8">
-    <title>Snake - View all games</title>
+    <title>Snake - View my games</title>
 
     <link rel="stylesheet" href="../css/style.css">
 
@@ -20,10 +20,10 @@
 
     <div id="menubox">
 
-        <h1 id="signup">All Games</h1>
+        <h1 id="signup">My Games</h1>
 
         <div id = "table-scroll">
-            <table id="table" class="pure-table">
+            <table id="table2" class="pure-table">
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
@@ -40,14 +40,13 @@
 
             <input id = "idfield" type = "text" placeholder = "Choose game by ID" />
 
-            <input id = "joingame" type = "button" value = "Join game"/>
+            <input id = "deletegame" type = "button" value = "Delete game"/>
 
             <input id = "createnewgame" type = "button" onclick="location.href='NewGame.html'" value = "New Game" />
 
+            <input id = "signupbut" type = "button" onclick = "location.href='UserMenu.html'" value = "back"/>
+
         </div>
-
-        <input id = "signupbut" type = "button" onclick = "location.href='UserMenu.html'" value = "back"/>
-
 
     </div>
 </div>
