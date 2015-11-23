@@ -27,7 +27,6 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $("#getgames").click(function () {
 
         var settings = {
             "async": true,
@@ -44,9 +43,62 @@ $(document).ready(function() {
                 tr.append("<td>" + data[i].name + "</td>");
                 tr.append("<td>" + data[i].host.id + "</td>");
                 tr.append("<td>" + data[i].created + "</td>");
-                $('table').append(tr);
+                tr.append("<td>" + data[i].status + "</td>");
+                tr.append("<td>" + data[i].score + "</td>");
+                tr.append("<td>" + data[i].winner.id + "</td>");
+                $('#table').append(tr);
             }
         });
+});
+
+//SKAL LAVES OM TIL SCORES
+$(document).ready(function() {
+
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:13337/api/games/7",
+        "method": "GET"
+    };
+
+    $.ajax(settings).done(function (data) {
+        var tr;
+        for (var i = 0; i < data.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + data[i].gameId + "</td>");
+            tr.append("<td>" + data[i].name + "</td>");
+            tr.append("<td>" + data[i].host.id + "</td>");
+            tr.append("<td>" + data[i].created + "</td>");
+            tr.append("<td>" + data[i].status + "</td>");
+            tr.append("<td>" + data[i].score + "</td>");
+            tr.append("<td>" + data[i].winner.id + "</td>");
+            $('#table2').append(tr);
+        }
+    });
+});
+
+$(document).ready(function() {
+
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:13337/api/games/7",
+        "method": "GET"
+    };
+
+    $.ajax(settings).done(function (data) {
+        var tr;
+        for (var i = 0; i < data.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + data[i].gameId + "</td>");
+            tr.append("<td>" + data[i].name + "</td>");
+            tr.append("<td>" + data[i].host.id + "</td>");
+            tr.append("<td>" + data[i].created + "</td>");
+            tr.append("<td>" + data[i].status + "</td>");
+            tr.append("<td>" + data[i].score + "</td>");
+            tr.append("<td>" + data[i].winner.id + "</td>");
+            $('#table2').append(tr);
+        }
     });
 });
 
