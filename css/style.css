@@ -199,6 +199,18 @@
     box-shadow: 0px 1px 16px rgba(0, 0, 0, 0.45);
 }
 
+#startgamebox {
+    position: absolute;
+    width: 480px;
+    height: 300px;
+    background: white;
+    top: 30%;
+    margin-top: -174px;
+    left: 50%;
+    margin-left: -240px;
+    box-shadow: 0px 1px 16px rgba(0, 0, 0, 0.45);
+}
+
 #logmsk {
     position: absolute;
     width: 100%;
@@ -253,7 +265,7 @@ body,input,select,td,textarea {
     text-align: left;
 }
 
-#joingame {
+#joingamebut {
     display: inline-block;
     -webkit-border-radius: 2px;
     border-radius: 2px;
@@ -289,7 +301,7 @@ body,input,select,td,textarea {
     cursor: pointer;
 }
 
-#creategame {
+#creategame, #startgamebut {
     display: inline-block;
     -webkit-border-radius: 2px;
     border-radius: 2px;
