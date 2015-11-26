@@ -17,7 +17,11 @@ $(document).ready(function() {
 
         $.ajax(settings).done(function (data, status, xhr) {
             if (xhr.status == 200) {
+
+                console.log(data);
                 window.location.href="../html/UserMenu.html";
+                $.session.set("hostId", data.userid);
+                console.log($.session.get("hostId"));
             }
             else {
                 alert("Fail");
@@ -51,13 +55,12 @@ $(document).ready(function() {
         });
 });
 
-//SKAL LAVES OM TIL SCORES
 $(document).ready(function() {
 
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://localhost:13337/api/games/7",
+        "url": "http://localhost:13337/api/games/" + $.session.get("hostId"),
         "method": "GET"
     };
 
@@ -77,12 +80,13 @@ $(document).ready(function() {
     });
 });
 
+/*//SKAL LAVES OM TIL SCORES
 $(document).ready(function() {
 
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://localhost:13337/api/games/7",
+        "url": "http://localhost:13337/api/scores/", //Skal der mere på her?
         "method": "GET"
     };
 
@@ -100,14 +104,14 @@ $(document).ready(function() {
             $('#table2').append(tr);
         }
     });
-});
+});*/
 
 $(document).ready(function() {
     $("#creategame").click(function () {
 
         var gameInfo = {
             "host" : {
-                "id" : $("#hostId").val(),
+                "id" : $.session.get("hostId"),
                 "controls" : $("#controls").val()
             },
             "name" : $("#gamename").val(),
@@ -123,11 +127,37 @@ $(document).ready(function() {
             "data" : JSON.stringify(gameInfo)
         };
 
-        console.log(JSON.stringify(gameInfo))
-
         $.ajax(settings).done(function (data, status, xhr) {
             if (xhr.status == 200 || xhr.status == 201) {
                 window.location.href="../html/Games.html";
+            }
+            else {
+                alert("Fail");
+            }
+        });
+    });
+});
+
+$(document).ready(function() {
+    $("#deletegame").click(function () {
+
+/*        var gameInfo = {
+            "gameId" : $("#idfield").val(),
+        };*/
+
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:13337/api/games/" + $("#idfield").val(),
+            "method": "DELETE",
+            ""
+        };
+
+        console.log($("#idfield").val());
+
+        $.ajax(settings).done(function (response, status, xhr) {
+            if (xhr.status == 200 || xhr.status == 201) {
+                window.location.href="../html/MyGames.html";
             }
             else {
                 alert("Fail");
