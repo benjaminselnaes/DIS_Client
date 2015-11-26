@@ -73,7 +73,6 @@ $(document).ready(function() {
             tr.append("<td>" + data[i].host.id + "</td>");
             tr.append("<td>" + data[i].created + "</td>");
             tr.append("<td>" + data[i].status + "</td>");
-            tr.append("<td>" + data[i].score + "</td>");
             tr.append("<td>" + data[i].winner.id + "</td>");
             $('#table2').append(tr);
         }
@@ -129,6 +128,8 @@ $(document).ready(function() {
 
         $.ajax(settings).done(function (data, status, xhr) {
             if (xhr.status == 200 || xhr.status == 201) {
+
+                console.log(data);
                 window.location.href="../html/Games.html";
             }
             else {
@@ -148,16 +149,78 @@ $(document).ready(function() {
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "http://localhost:13337/api/games/" + $("#idfield").val(),
-            "method": "DELETE",
-            ""
+            "url": "http://localhost:13337/api/games/",
+            "method": "DELETE"
         };
 
-        console.log($("#idfield").val());
+        $.ajax(settings).done(function (response) {
+            console.log(response)
+        });
+    });
+});
+
+$(document).ready(function() {
+    $("#joingamebut").click(function () {
+
+        var gameInfo = {
+            "gameId" : $("#idfield").val(),
+            "opponent" : {
+                "id" : $.session.get("hostId"),
+                "controls" : ""
+            }
+        };
+
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:13337/api/games/join",
+            "method": "POST",
+            "processData": false,
+            "data" : JSON.stringify(gameInfo)
+        };
+
+        console.log(JSON.stringify(gameInfo));
 
         $.ajax(settings).done(function (response, status, xhr) {
             if (xhr.status == 200 || xhr.status == 201) {
-                window.location.href="../html/MyGames.html";
+
+                console.log(response);
+                window.location.href="../html/StartGame.html";
+                $.session.set("gameID", $("#idfield").val());
+            }
+            else {
+                console.log("Fail");
+            }
+        });
+    });
+});
+
+$(document).ready(function() {
+    $("#startgamebut").click(function () {
+
+        var gameInfo = {
+            "gameId" : $.session.get("gameID"),
+            "opponent" : {
+                "id" : $.session.get("hostId"),
+                "controls" : $("#controlsfield").val()
+            }
+        };
+
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:13337/api/games/start",
+            "method": "POST",
+            "processData": false,
+            "data" : JSON.stringify(gameInfo)
+        };
+
+        console.log(JSON.stringify(gameInfo));
+
+        $.ajax(settings).done(function (response, status, xhr) {
+            if (xhr.status == 200 || xhr.status == 201) {
+                console.log(response);
+                window.location.href="../html/Games.html";
             }
             else {
                 alert("Fail");
@@ -165,4 +228,3 @@ $(document).ready(function() {
         });
     });
 });
-
