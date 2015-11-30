@@ -1,3 +1,6 @@
+/*////////////
+LOGIN FUNKTION
+ *////////////
 $(document).ready(function() {
     $("#loginbut").click(function () {
 
@@ -30,6 +33,9 @@ $(document).ready(function() {
     });
 });
 
+/*////////////
+ ALL OPEN GAMES
+ *////////////
 $(document).ready(function() {
 
         var settings = {
@@ -47,14 +53,14 @@ $(document).ready(function() {
                 tr.append("<td>" + data[i].name + "</td>");
                 tr.append("<td>" + data[i].host.id + "</td>");
                 tr.append("<td>" + data[i].created + "</td>");
-                tr.append("<td>" + data[i].status + "</td>");
-                tr.append("<td>" + data[i].score + "</td>");
-                tr.append("<td>" + data[i].winner.id + "</td>");
                 $('#table').append(tr);
             }
         });
 });
 
+/*////////////
+GAMES FOR A SPECIFIC USER
+ *////////////
 $(document).ready(function() {
 
     var settings = {
@@ -79,7 +85,9 @@ $(document).ready(function() {
     });
 });
 
-/*//SKAL LAVES OM TIL SCORES
+/*////////////
+ SCORES FUNKTION
+ *////////////
 $(document).ready(function() {
 
     var settings = {
@@ -93,18 +101,18 @@ $(document).ready(function() {
         var tr;
         for (var i = 0; i < data.length; i++) {
             tr = $('<tr/>');
-            tr.append("<td>" + data[i].gameId + "</td>");
-            tr.append("<td>" + data[i].name + "</td>");
-            tr.append("<td>" + data[i].host.id + "</td>");
-            tr.append("<td>" + data[i].created + "</td>");
-            tr.append("<td>" + data[i].status + "</td>");
+            tr.append("<td>" + data[i].user.username + "</td>");
             tr.append("<td>" + data[i].score + "</td>");
-            tr.append("<td>" + data[i].winner.id + "</td>");
-            $('#table2').append(tr);
+            tr.append("<td>" + data[i].game.name + "</td>");
+            tr.append("<td>" + data[i].game.created + "</td>");
+            $('#table3').append(tr);
         }
     });
-});*/
+});
 
+/*////////////
+ CREATE GAME FUNKTION
+ *////////////
 $(document).ready(function() {
     $("#creategame").click(function () {
 
@@ -139,6 +147,9 @@ $(document).ready(function() {
     });
 });
 
+/*////////////
+ DELETE GAME FUNKTION
+ *////////////
 $(document).ready(function() {
     $("#deletegame").click(function () {
 
@@ -149,16 +160,28 @@ $(document).ready(function() {
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "http://localhost:13337/api/games/",
-            "method": "DELETE"
+            "url": "http://localhost:13337/api/games/" + $("#idfield").val(),
+            "method": "POST"
         };
 
         $.ajax(settings).done(function (response) {
-            console.log(response)
+            $.ajax(settings).done(function (response, status, xhr) {
+                if (xhr.status == 200) {
+
+                    console.log(response);
+                    window.location.href="../html/MyGames.html";
+                }
+                else {
+                    console.log("Fail");
+                }
+            });
         });
     });
 });
 
+/*////////////
+ JOIN GAME FUNKTION
+ *////////////
 $(document).ready(function() {
     $("#joingamebut").click(function () {
 
@@ -195,6 +218,9 @@ $(document).ready(function() {
     });
 });
 
+/*////////////
+ START GAME FUNKTION
+ *////////////
 $(document).ready(function() {
     $("#startgamebut").click(function () {
 
