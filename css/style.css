@@ -102,7 +102,7 @@
     box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
 }
 
-#login, #signup {
+#login, #head {
     margin: 0px;
     padding: 3px 0px 9px;
     color: whitesmoke;
@@ -344,7 +344,7 @@ body,input,select,td,textarea {
 
 }
 
-#table, #table2 {
+#table, #table2, #table3 {
     margin: 10px auto;
     widht: 100%;
     font-family: verdana,arial,sans-serif;
@@ -354,14 +354,14 @@ body,input,select,td,textarea {
     border-color: #666666;
     border-collapse: collapse;
 }
-#table th, #table2 th {
+#table th, #table2 th, #table3 th {
     border-width: 1px;
     padding: 2px;
     border-style: solid;
     border-color: #666666;
     background-color: #dedede;
 }
-#table td, #table2 td {
+#table td, #table2 td, #table3 td {
     border-width: 1px;
     padding: 8px;
     border-style: solid;
