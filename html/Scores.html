@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html >
 <head>
+
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Snake - Highscores</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link href = "http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel = "stylesheet" type = "text/css">
+
 </head>
+
 <body>
+
+<div id = "logmsk" style = "display: block;">
+    q
+    <div id="menubox">
+
+        <h1 id="head">Highscores</h1>
+
+        <div id = "table-scroll">
+            <table id="table3" class="pure-table">
+                <tr>
+                    <th>User</th>
+                    <th>Score</th>
+                    <th>Game Name</th>
+                    <th>Date</th>
+                </tr>
+            </table>
+        </div>
+
+        <input id = "signupbut" type = "button" onclick = "location.href='UserMenu.html'" value = "back"/>
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/jquery.session.js"></script>
 
 </body>
 </html>
