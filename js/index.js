@@ -1,6 +1,7 @@
-/*////////////
-LOGIN FUNKTION
- *////////////
+/*------------------------------------------------------------------------------
+                                LOGIN FUNKTION
+            Gets input from the user and sends it to the server as JSON
+ ------------------------------------------------------------------------------*/
 $(document).ready(function() {
     $("#loginbut").click(function () {
 
@@ -18,24 +19,28 @@ $(document).ready(function() {
             "data" : JSON.stringify(loginInfo)
         };
 
+        // When the input is handled by the server it will return a status.
+        // Based on the return the client either sends the user to the menu
+        // or alerts the user about an error in the input.
+
         $.ajax(settings).done(function (data, status, xhr) {
-            if (xhr.status == 200) {
+            if (xhr.status == 200 || xhr.status == 400) {
 
                 console.log(data);
                 window.location.href="../html/UserMenu.html";
+                //The client uses session handling to store the id of the user logged in
                 $.session.set("hostId", data.userid);
-                console.log($.session.get("hostId"));
             }
             else {
-                alert("Fail");
+                window.alert("Fail");
             }
         });
     });
 });
 
-/*////////////
- ALL OPEN GAMES
- *////////////
+/*------------------------------------------------------------------------------
+                                ALL OPEN GAMES
+ ------------------------------------------------------------------------------*/
 $(document).ready(function() {
 
         var settings = {
@@ -58,9 +63,9 @@ $(document).ready(function() {
         });
 });
 
-/*////////////
-GAMES FOR A SPECIFIC USER
- *////////////
+/*------------------------------------------------------------------------------
+                               GAMES FOR A SPECIFIC USER
+ ------------------------------------------------------------------------------*/
 $(document).ready(function() {
 
     var settings = {
@@ -85,9 +90,9 @@ $(document).ready(function() {
     });
 });
 
-/*////////////
- SCORES FUNKTION
- *////////////
+/*------------------------------------------------------------------------------
+                                SCORES FUNKTION
+ ------------------------------------------------------------------------------*/
 $(document).ready(function() {
 
     var settings = {
@@ -110,9 +115,9 @@ $(document).ready(function() {
     });
 });
 
-/*////////////
- CREATE GAME FUNKTION
- *////////////
+/*------------------------------------------------------------------------------
+                                CREATE GAME FUNKTION
+ ------------------------------------------------------------------------------*/
 $(document).ready(function() {
     $("#creategame").click(function () {
 
@@ -147,9 +152,9 @@ $(document).ready(function() {
     });
 });
 
-/*////////////
- DELETE GAME FUNKTION
- *////////////
+/*------------------------------------------------------------------------------
+                                DELETE GAME FUNKTION
+ ------------------------------------------------------------------------------*/
 $(document).ready(function() {
     $("#deletegame").click(function () {
 
@@ -179,9 +184,9 @@ $(document).ready(function() {
     });
 });
 
-/*////////////
- JOIN GAME FUNKTION
- *////////////
+/*------------------------------------------------------------------------------
+                                JOIN GAME FUNKTION
+ ------------------------------------------------------------------------------*/
 $(document).ready(function() {
     $("#joingamebut").click(function () {
 
@@ -218,9 +223,9 @@ $(document).ready(function() {
     });
 });
 
-/*////////////
- START GAME FUNKTION
- *////////////
+/*------------------------------------------------------------------------------
+                                START GAME FUNKTION
+ ------------------------------------------------------------------------------*/
 $(document).ready(function() {
     $("#startgamebut").click(function () {
 
@@ -245,7 +250,6 @@ $(document).ready(function() {
 
         $.ajax(settings).done(function (response, status, xhr) {
             if (xhr.status == 200 || xhr.status == 201) {
-                console.log(response);
                 window.location.href="../html/Games.html";
             }
             else {
