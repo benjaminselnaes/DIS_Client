@@ -12,7 +12,7 @@ $(document).ready(function() {
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "http://localhost:13337/api/login/",
+            "url": config.url + "/login/",
             "method": "POST",
             "processData": false,
             "data" : JSON.stringify(loginInfo)
@@ -41,7 +41,7 @@ $(document).ready(function() {
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "http://localhost:13337/api/games/open",
+            "url": config.url + "/games/open",
             "method": "GET"
         };
 
@@ -66,7 +66,7 @@ $(document).ready(function() {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://localhost:13337/api/games/" + $.session.get("hostId"),
+        "url": config.url + "/games/" + $.session.get("hostId"),
         "method": "GET"
     };
 
@@ -93,7 +93,7 @@ $(document).ready(function() {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://localhost:13337/api/scores/", //Skal der mere på her?
+        "url": config.url + "/scores/",
         "method": "GET"
     };
 
@@ -128,7 +128,7 @@ $(document).ready(function() {
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "http://localhost:13337/api/games/",
+            "url": config.url + "/games/",
             "method": "POST",
             "processData": false,
             "data" : JSON.stringify(gameInfo)
@@ -160,7 +160,7 @@ $(document).ready(function() {
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "http://localhost:13337/api/games/" + $("#idfield").val(),
+            "url": config.url + "/games/" + $("#idfield").val(),
             "method": "POST"
         };
 
@@ -196,7 +196,7 @@ $(document).ready(function() {
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "http://localhost:13337/api/games/join",
+            "url": config.url + "/games/join",
             "method": "POST",
             "processData": false,
             "data" : JSON.stringify(gameInfo)
@@ -235,7 +235,7 @@ $(document).ready(function() {
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "http://localhost:13337/api/games/start",
+            "url": config.url + "/games/start",
             "method": "POST",
             "processData": false,
             "data" : JSON.stringify(gameInfo)
