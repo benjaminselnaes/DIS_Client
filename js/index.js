@@ -251,6 +251,12 @@ $(document).ready(function() {
         $.ajax(settings).done(function (response, status, xhr) {
             if (xhr.status == 200 || xhr.status == 201) {
                 window.location.href="../html/Games.html";
+                //Response given to the user after the game finished:
+                if (response.winner.id == $.session.get("hostId")){
+                    window.alert("Gongratulations! You won!/nYour score: " + response.winner.score)
+                } else {
+                    window.alert("Blimey! You lost!/nBetter luck next time")
+                }
             }
             else {
                 alert("Fail");
