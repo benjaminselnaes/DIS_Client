@@ -43,7 +43,7 @@
     font-size: 14px;
 }
 
-#username, #name, #lastname, #email, #gamename, #hostId, #controls, #mapsize {
+#username, #name, #lastname, #email, #gamename, #hostId, #controls, #mapsize, #controlsfield {
     -moz-appearance: none;
     -webkit-appearance: none;
     padding: 0 8px;
@@ -341,7 +341,12 @@ body,input,select,td,textarea {
     position: relative;
     height: 340px;
     overflow: auto;
+}
 
+#table-scroll3 {
+    position: relative;
+    height: 400px;
+    overflow: auto;
 }
 
 #table, #table2, #table3 {
