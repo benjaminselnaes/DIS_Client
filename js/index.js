@@ -5,36 +5,46 @@
 $(document).ready(function() {
     $("#loginbut").click(function () {
 
+        //Retrieve input from user and store as a value
         var loginInfo = {
             "username" : $("#name").val(),
             "password" : $("#pass").val()
         };
 
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": config.url + "/login/",
-            "method": "POST",
-            "processData": false,
-            "data" : JSON.stringify(loginInfo)
-        };
+        //Makes sure that none of the required fields are left blank
+        if(loginInfo.username == '' || loginInfo.password == '') {
+            alert("Please fill out all fields")
 
-        // When the input is handled by the server it will return a status.
-        // Based on the return the client either sends the user to the menu
-        // or alerts the user about an error in the input.
+        }else {
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": config.url + "/login/",
+                "method": "POST",
+                "processData": false,
+                "data": JSON.stringify(loginInfo)
+            };
 
-        $.ajax(settings).done(function (data, status, xhr) {
-            if (xhr.status == 200 || xhr.status == 400) {
+            /*
+            When the input is handled by the server it will return a status.
+             */
+            $.ajax(settings)
+            //If the request goes through it will be handled as 'done'
+                .done(function (data) {
 
-                console.log(data);
-                window.location.href="../html/UserMenu.html";
-                //The client uses session handling to store the id of the user logged in
-                $.session.set("hostId", data.userid);
-            }
-            else {
-                window.alert("Fail");
-            }
-        });
+                    console.log(data);
+                    window.location.href = "../html/UserMenu.html";
+                    //The client uses session handling to store the id of the user logged in
+                    $.session.set("hostId", data.userid);
+                })
+
+                //If the request does not go through it will be caught as 'fail'
+                .fail(function(data){
+
+                    console.log(data.responseText);
+                    alert("Wrong username or password!");
+                });
+        }
     });
 });
 
@@ -51,17 +61,24 @@ $(document).ready(function() {
             "method": "GET"
         };
 
-        $.ajax(settings).done(function (data) {
-            var tr;
-            for (var i = 0; i < data.length; i++) {
-                tr = $('<tr/>');
-                tr.append("<td>" + data[i].gameId + "</td>");
-                tr.append("<td>" + data[i].name + "</td>");
-                tr.append("<td>" + data[i].host.id + "</td>");
-                tr.append("<td>" + data[i].created + "</td>");
-                $('#table').append(tr);
-            }
-        });
+        $.ajax(settings)
+            .done(function (data) {
+                var tr;
+                for (var i = 0; i < data.length; i++) {
+                    tr = $('<tr/>');
+                    tr.append("<td>" + data[i].gameId + "</td>");
+                    tr.append("<td>" + data[i].name + "</td>");
+                    tr.append("<td>" + data[i].host.id + "</td>");
+                    tr.append("<td>" + data[i].created + "</td>");
+                    $('#table').append(tr);
+                }
+            })
+            .fail(function(data){
+
+                console.log(data.responseText);
+                alert("Something went wrong\nPlease refresh your browser");
+            });
+    }
 });
 
 /*------------------------------------------------------------------------------
@@ -70,26 +87,35 @@ $(document).ready(function() {
 $(document).ready(function() {
     if(window.location.pathname == "/sign-up-login-box/html/MyGames.html") {
 
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": config.url + "/games/" + $.session.get("hostId"),
-        "method": "GET"
-    };
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": config.url + "/games/" + $.session.get("hostId"),
+            "method": "GET"
+        };
 
-    $.ajax(settings).done(function (data) {
-        var tr;
-        for (var i = 0; i < data.length; i++) {
-            tr = $('<tr/>');
-            tr.append("<td>" + data[i].gameId + "</td>");
-            tr.append("<td>" + data[i].name + "</td>");
-            tr.append("<td>" + data[i].host.id + "</td>");
-            tr.append("<td>" + data[i].created + "</td>");
-            tr.append("<td>" + data[i].status + "</td>");
-            tr.append("<td>" + data[i].winner.id + "</td>");
-            $('#table2').append(tr);
-        }
-    });
+        console.log(window.location.pathname);
+
+        $.ajax(settings)
+            .done(function (data) {
+                var tr;
+                for (var i = 0; i < data.length; i++) {
+                    tr = $('<tr/>');
+                    tr.append("<td>" + data[i].gameId + "</td>");
+                    tr.append("<td>" + data[i].name + "</td>");
+                    tr.append("<td>" + data[i].host.id + "</td>");
+                    tr.append("<td>" + data[i].created + "</td>");
+                    tr.append("<td>" + data[i].status + "</td>");
+                    tr.append("<td>" + data[i].winner.id + "</td>");
+                    $('#table2').append(tr);
+                }
+            })
+            .fail(function(data){
+
+                console.log(data.responseText);
+                alert("Something went wrong\nPlease refresh your browser");
+            });
+    }
 });
 
 /*------------------------------------------------------------------------------
@@ -98,25 +124,32 @@ $(document).ready(function() {
 $(document).ready(function() {
     if(window.location.pathname == "/sign-up-login-box/html/Scores.html") {
 
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": config.url + "/scores/",
-        "method": "GET"
-    };
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": config.url + "/scores/",
+            "method": "GET"
+        };
 
-    $.ajax(settings).done(function (data) {
-        var tr;
-        for (var i = 0; i < data.length; i++) {
-            tr = $('<tr/>');
-            tr.append("<td>" + data[i].user.username + "</td>");
-            tr.append("<td>" + data[i].score + "</td>");
-            tr.append("<td>" + data[i].game.name + "</td>");
-            tr.append("<td>" + data[i].game.created + "</td>");
-            $('#table3').append(tr);
-        }
-    });
+        $.ajax(settings)
+            .done(function (data) {
+                var tr;
+                for (var i = 0; i < data.length; i++) {
+                    tr = $('<tr/>');
                     tr.append("<td>" + (i+1) + "</td>");
+                    tr.append("<td>" + data[i].user.username + "</td>");
+                    tr.append("<td>" + data[i].score + "</td>");
+                    tr.append("<td>" + data[i].game.name + "</td>");
+                    tr.append("<td>" + data[i].game.created + "</td>");
+                    $('#table3').append(tr);
+                }
+            })
+            .fail(function(data){
+
+                console.log(data.responseText);
+                alert("Something went wrong\nPlease refresh your browser");
+            });
+    }
 });
 
 /*------------------------------------------------------------------------------
@@ -134,25 +167,43 @@ $(document).ready(function() {
             "mapSize" : $("#mapsize").val()
         };
 
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": config.url + "/games/",
-            "method": "POST",
-            "processData": false,
-            "data" : JSON.stringify(gameInfo)
-        };
+        //Makes sure that none of the required fields are left blank
+        if(gameInfo.host.controls == '' || gameInfo.name == '' || gameInfo.mapSize == '') {
+            alert("Please fill out all fields")
 
-        $.ajax(settings).done(function (data, status, xhr) {
-            if (xhr.status == 200 || xhr.status == 201) {
+        //Controls if the user is logged in to avoid a game with no host
+        }else if(gameInfo.host.id == null) {
 
-                console.log(data);
-                window.location.href="../html/Games.html";
-            }
-            else {
-                alert("Fail");
-            }
-        });
+            //If there is no stored hostID the user will be redirected to login-screen
+            window.location.href = "../html/index.html";
+            alert("Please log in..")
+
+        }else {
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": config.url + "/games/",
+                "method": "POST",
+                "processData": false,
+                "data": JSON.stringify(gameInfo)
+            };
+
+            $.ajax(settings)
+                .done(function (data) {
+
+                    console.log(data);
+                    console.log(gameInfo.host.id);
+                    window.location.href = "../html/Games.html";
+
+            })
+                .fail(function(data){
+
+                    console.log(data.responseText);
+                    alert("Something went wrong\nPlease try again");
+                    window.location.href = "../html/NewGame.html";
+
+                });
+        }
     });
 });
 
@@ -162,10 +213,6 @@ $(document).ready(function() {
 $(document).ready(function() {
     $("#deletegame").click(function () {
 
-/*        var gameInfo = {
-            "gameId" : $("#idfield").val(),
-        };*/
-
         var settings = {
             "async": true,
             "crossDomain": true,
@@ -173,18 +220,23 @@ $(document).ready(function() {
             "method": "POST"
         };
 
-        $.ajax(settings).done(function (response) {
-            $.ajax(settings).done(function (response, status, xhr) {
-                if (xhr.status == 200) {
+        //Makes sure that none of the required fields are left blank
+        if($("#idfield").val() == ''){
+            alert("Please enter a game ID to delete..");
 
-                    console.log(response);
-                    window.location.href="../html/MyGames.html";
-                }
-                else {
-                    console.log("Fail");
-                }
+        }else {
+        $.ajax(settings)
+            .done(function (data) {
+
+                console.log(data);
+                window.location.href="../html/MyGames.html";
+             })
+            .fail(function(data){
+
+                console.log(data.responseText);
+                alert("Something went wrong\nPlease choose a game from the list");
             });
-        });
+        }
     });
 });
 
@@ -202,28 +254,39 @@ $(document).ready(function() {
             }
         };
 
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": config.url + "/games/join",
-            "method": "POST",
-            "processData": false,
-            "data" : JSON.stringify(gameInfo)
-        };
+        //Makes sure that none of the required fields are left blank
+        if($("#idfield").val() == ''){
+            alert("Please choose a game from the list");
 
-        console.log(JSON.stringify(gameInfo));
+        }else {
 
-        $.ajax(settings).done(function (response, status, xhr) {
-            if (xhr.status == 200 || xhr.status == 201) {
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": config.url + "/games/join",
+                "method": "POST",
+                "processData": false,
+                "data": JSON.stringify(gameInfo)
+            };
 
-                console.log(response);
-                window.location.href="../html/StartGame.html";
-                $.session.set("gameID", $("#idfield").val());
-            }
-            else {
-                console.log("Fail");
-            }
-        });
+            console.log(JSON.stringify(gameInfo));
+
+            $.ajax(settings)
+                .done(function (data) {
+
+                    console.log(data);
+                    window.location.href = "../html/StartGame.html";
+                    $.session.set("gameID", $("#idfield").val());
+
+                })
+                .fail(function (data) {
+
+                    console.log(data.responseText);
+                    alert("Something went wrong\nPlease try again");
+                    window.location.href = "../html/Games.html";
+
+                });
+        }
     });
 });
 
@@ -241,30 +304,36 @@ $(document).ready(function() {
             }
         };
 
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": config.url + "/games/start",
-            "method": "POST",
-            "processData": false,
-            "data" : JSON.stringify(gameInfo)
-        };
+        if($("#controlsfield").val() == ''){
+            alert("Please enter your controls to start the game");
+        }else {
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": config.url + "/games/start",
+                "method": "POST",
+                "processData": false,
+                "data": JSON.stringify(gameInfo)
+            };
 
-        console.log(JSON.stringify(gameInfo));
+            $.ajax(settings)
+                .done(function (data) {
 
-        $.ajax(settings).done(function (response, status, xhr) {
-            if (xhr.status == 200 || xhr.status == 201) {
-                window.location.href="../html/Games.html";
-                //Response given to the user after the game finished:
-                if (response.winner.id == $.session.get("hostId")){
-                    window.alert("Gongratulations! You won!/nYour score: " + response.winner.score)
-                } else {
-                    window.alert("Blimey! You lost!/nBetter luck next time")
-                }
-            }
-            else {
-                alert("Fail");
-            }
-        });
+                    window.location.href = "../html/Games.html";
+
+                    if (data.winner.id == $.session.get("hostId")) {
+                        window.alert("Congratulations! You won!\nYour score: " + data.winner.score)
+                    } else {
+                        window.alert("Blimey! You lost!\nBetter luck next time")
+                    }
+                })
+                .fail(function (data) {
+
+                    console.log(data.responseText);
+                    alert("Something went wrong!\nSorry..");
+                    window.location.href = "../html/Games.html";
+
+                });
+        }
     });
 });
