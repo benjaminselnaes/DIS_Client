@@ -42,6 +42,7 @@ $(document).ready(function() {
                                 ALL OPEN GAMES
  ------------------------------------------------------------------------------*/
 $(document).ready(function() {
+    if(window.location.pathname == "/sign-up-login-box/html/Games.html") {
 
         var settings = {
             "async": true,
@@ -67,6 +68,7 @@ $(document).ready(function() {
                                GAMES FOR A SPECIFIC USER
  ------------------------------------------------------------------------------*/
 $(document).ready(function() {
+    if(window.location.pathname == "/sign-up-login-box/html/MyGames.html") {
 
     var settings = {
         "async": true,
@@ -94,6 +96,7 @@ $(document).ready(function() {
                                 SCORES FUNKTION
  ------------------------------------------------------------------------------*/
 $(document).ready(function() {
+    if(window.location.pathname == "/sign-up-login-box/html/Scores.html") {
 
     var settings = {
         "async": true,
