@@ -53,6 +53,7 @@ $(document).ready(function() {
  ------------------------------------------------------------------------------*/
 $(document).ready(function() {
     if(window.location.pathname == "/sign-up-login-box/html/Games.html") {
+        if($.session.get("hostId") != null) {
 
         var settings = {
             "async": true,
@@ -78,6 +79,9 @@ $(document).ready(function() {
                 console.log(data.responseText);
                 alert("Something went wrong\nPlease refresh your browser");
             });
+        }else{
+            window.location.href = "../html/index.html";
+        }
     }
 });
 
@@ -86,35 +90,39 @@ $(document).ready(function() {
  ------------------------------------------------------------------------------*/
 $(document).ready(function() {
     if(window.location.pathname == "/sign-up-login-box/html/MyGames.html") {
+        if($.session.get("hostId") != null) {
 
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": config.url + "/games/" + $.session.get("hostId"),
-            "method": "GET"
-        };
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": config.url + "/games/" + $.session.get("hostId"),
+                "method": "GET"
+            };
 
-        console.log(window.location.pathname);
+            console.log(window.location.pathname);
 
-        $.ajax(settings)
-            .done(function (data) {
-                var tr;
-                for (var i = 0; i < data.length; i++) {
-                    tr = $('<tr/>');
-                    tr.append("<td>" + data[i].gameId + "</td>");
-                    tr.append("<td>" + data[i].name + "</td>");
-                    tr.append("<td>" + data[i].host.id + "</td>");
-                    tr.append("<td>" + data[i].created + "</td>");
-                    tr.append("<td>" + data[i].status + "</td>");
-                    tr.append("<td>" + data[i].winner.id + "</td>");
-                    $('#table2').append(tr);
-                }
-            })
-            .fail(function(data){
+            $.ajax(settings)
+                .done(function (data) {
+                    var tr;
+                    for (var i = 0; i < data.length; i++) {
+                        tr = $('<tr/>');
+                        tr.append("<td>" + data[i].gameId + "</td>");
+                        tr.append("<td>" + data[i].name + "</td>");
+                        tr.append("<td>" + data[i].host.id + "</td>");
+                        tr.append("<td>" + data[i].created + "</td>");
+                        tr.append("<td>" + data[i].status + "</td>");
+                        tr.append("<td>" + data[i].winner.id + "</td>");
+                        $('#table2').append(tr);
+                    }
+                })
+                .fail(function (data) {
 
-                console.log(data.responseText);
-                alert("Something went wrong\nPlease refresh your browser");
-            });
+                    console.log(data.responseText);
+                    alert("Something went wrong\nPlease refresh your browser");
+                });
+        }else{
+            window.location.href = "../html/index.html";
+        }
     }
 });
 
@@ -123,6 +131,7 @@ $(document).ready(function() {
  ------------------------------------------------------------------------------*/
 $(document).ready(function() {
     if(window.location.pathname == "/sign-up-login-box/html/Scores.html") {
+        if($.session.get("hostId") != null) {
 
         var settings = {
             "async": true,
@@ -149,6 +158,9 @@ $(document).ready(function() {
                 console.log(data.responseText);
                 alert("Something went wrong\nPlease refresh your browser");
             });
+        }else{
+            window.location.href = "../html/index.html";
+        }
     }
 });
 
@@ -157,52 +169,48 @@ $(document).ready(function() {
  ------------------------------------------------------------------------------*/
 $(document).ready(function() {
     $("#creategame").click(function () {
+        if($.session.get("hostId") != null) {
 
-        var gameInfo = {
+            var gameInfo = {
             "host" : {
                 "id" : $.session.get("hostId"),
                 "controls" : $("#controls").val()
             },
             "name" : $("#gamename").val(),
             "mapSize" : $("#mapsize").val()
-        };
-
-        //Makes sure that none of the required fields are left blank
-        if(gameInfo.host.controls == '' || gameInfo.name == '' || gameInfo.mapSize == '') {
-            alert("Please fill out all fields")
-
-        //Controls if the user is logged in to avoid a game with no host
-        }else if(gameInfo.host.id == null) {
-
-            //If there is no stored hostID the user will be redirected to login-screen
-            window.location.href = "../html/index.html";
-            alert("Please log in..")
-
-        }else {
-            var settings = {
-                "async": true,
-                "crossDomain": true,
-                "url": config.url + "/games/",
-                "method": "POST",
-                "processData": false,
-                "data": JSON.stringify(gameInfo)
             };
 
-            $.ajax(settings)
-                .done(function (data) {
+            //Makes sure that none of the required fields are left blank
+            if(gameInfo.host.controls == '' || gameInfo.name == '' || gameInfo.mapSize == '') {
+                alert("Please fill out all fields")
 
-                    console.log(data);
-                    console.log(gameInfo.host.id);
-                    window.location.href = "../html/Games.html";
+            }else {
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": config.url + "/games/",
+                    "method": "POST",
+                    "processData": false,
+                    "data": JSON.stringify(gameInfo)
+                };
 
-            })
-                .fail(function(data){
+                $.ajax(settings)
+                    .done(function (data) {
 
-                    console.log(data.responseText);
-                    alert("Something went wrong\nPlease try again");
-                    window.location.href = "../html/NewGame.html";
+                        console.log(data);
+                        window.location.href = "../html/Games.html";
 
-                });
+                })
+                    .fail(function(data){
+
+                        console.log(data.responseText);
+                        alert("Something went wrong\nPlease try again");
+                        window.location.href = "../html/NewGame.html";
+
+                    });
+            }
+        }else{
+            window.location.href = "../html/index.html";
         }
     });
 });
@@ -212,30 +220,34 @@ $(document).ready(function() {
  ------------------------------------------------------------------------------*/
 $(document).ready(function() {
     $("#deletegame").click(function () {
+        if($.session.get("hostId") != null) {
 
-        var settings = {
+            var settings = {
             "async": true,
             "crossDomain": true,
             "url": config.url + "/games/" + $("#idfield").val(),
             "method": "POST"
-        };
+            };
 
-        //Makes sure that none of the required fields are left blank
-        if($("#idfield").val() == ''){
-            alert("Please enter a game ID to delete..");
+            //Makes sure that none of the required fields are left blank
+            if($("#idfield").val() == ''){
+                alert("Please enter a game ID to delete..");
 
-        }else {
-        $.ajax(settings)
-            .done(function (data) {
+            }else {
+            $.ajax(settings)
+                .done(function (data) {
 
-                console.log(data);
-                window.location.href="../html/MyGames.html";
-             })
-            .fail(function(data){
+                    console.log(data);
+                    window.location.href="../html/MyGames.html";
+                 })
+                .fail(function(data){
 
-                console.log(data.responseText);
-                alert("Something went wrong\nPlease choose a game from the list");
-            });
+                    console.log(data.responseText);
+                    alert("Something went wrong\nPlease choose a game from the list");
+                });
+            }
+        }else{
+            window.location.href = "../html/index.html";
         }
     });
 });
@@ -245,47 +257,51 @@ $(document).ready(function() {
  ------------------------------------------------------------------------------*/
 $(document).ready(function() {
     $("#joingamebut").click(function () {
+        if($.session.get("hostId") != null) {
 
-        var gameInfo = {
-            "gameId" : $("#idfield").val(),
-            "opponent" : {
-                "id" : $.session.get("hostId"),
-                "controls" : ""
-            }
-        };
-
-        //Makes sure that none of the required fields are left blank
-        if($("#idfield").val() == ''){
-            alert("Please choose a game from the list");
-
-        }else {
-
-            var settings = {
-                "async": true,
-                "crossDomain": true,
-                "url": config.url + "/games/join",
-                "method": "POST",
-                "processData": false,
-                "data": JSON.stringify(gameInfo)
+            var gameInfo = {
+                "gameId" : $("#idfield").val(),
+                "opponent" : {
+                    "id" : $.session.get("hostId"),
+                    "controls" : ""
+                }
             };
 
-            console.log(JSON.stringify(gameInfo));
+            //Makes sure that none of the required fields are left blank
+            if($("#idfield").val() == ''){
+                alert("Please choose a game from the list");
 
-            $.ajax(settings)
-                .done(function (data) {
+            }else {
 
-                    console.log(data);
-                    window.location.href = "../html/StartGame.html";
-                    $.session.set("gameID", $("#idfield").val());
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": config.url + "/games/join",
+                    "method": "POST",
+                    "processData": false,
+                    "data": JSON.stringify(gameInfo)
+                };
 
-                })
-                .fail(function (data) {
+                console.log(JSON.stringify(gameInfo));
 
-                    console.log(data.responseText);
-                    alert("Something went wrong\nPlease try again");
-                    window.location.href = "../html/Games.html";
+                $.ajax(settings)
+                    .done(function (data) {
 
-                });
+                        console.log(data);
+                        window.location.href = "../html/StartGame.html";
+                        $.session.set("gameID", $("#idfield").val());
+
+                    })
+                    .fail(function (data) {
+
+                        console.log(data.responseText);
+                        alert("Something went wrong\nPlease try again");
+                        window.location.href = "../html/Games.html";
+
+                    });
+            }
+        }else{
+            window.location.href = "../html/index.html";
         }
     });
 });
@@ -295,45 +311,49 @@ $(document).ready(function() {
  ------------------------------------------------------------------------------*/
 $(document).ready(function() {
     $("#startgamebut").click(function () {
+        if($.session.get("hostId") != null) {
 
-        var gameInfo = {
-            "gameId" : $.session.get("gameID"),
-            "opponent" : {
-                "id" : $.session.get("hostId"),
-                "controls" : $("#controlsfield").val()
-            }
-        };
-
-        if($("#controlsfield").val() == ''){
-            alert("Please enter your controls to start the game");
-        }else {
-            var settings = {
-                "async": true,
-                "crossDomain": true,
-                "url": config.url + "/games/start",
-                "method": "POST",
-                "processData": false,
-                "data": JSON.stringify(gameInfo)
+            var gameInfo = {
+                "gameId" : $.session.get("gameID"),
+                "opponent" : {
+                    "id" : $.session.get("hostId"),
+                    "controls" : $("#controlsfield").val()
+                }
             };
 
-            $.ajax(settings)
-                .done(function (data) {
+            if($("#controlsfield").val() == ''){
+                alert("Please enter your controls to start the game");
+            }else {
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": config.url + "/games/start",
+                    "method": "POST",
+                    "processData": false,
+                    "data": JSON.stringify(gameInfo)
+                };
 
-                    window.location.href = "../html/Games.html";
+                $.ajax(settings)
+                    .done(function (data) {
 
-                    if (data.winner.id == $.session.get("hostId")) {
-                        window.alert("Congratulations! You won!\nYour score: " + data.winner.score)
-                    } else {
-                        window.alert("Blimey! You lost!\nBetter luck next time")
-                    }
-                })
-                .fail(function (data) {
+                        window.location.href = "../html/Games.html";
 
-                    console.log(data.responseText);
-                    alert("Something went wrong!\nSorry..");
-                    window.location.href = "../html/Games.html";
+                        if (data.winner.id == $.session.get("hostId")) {
+                            window.alert("Congratulations! You won!\nYour score: " + data.winner.score)
+                        } else {
+                            window.alert("Blimey! You lost!\nBetter luck next time")
+                        }
+                    })
+                    .fail(function (data) {
 
-                });
+                        console.log(data.responseText);
+                        alert("Something went wrong!\nSorry..");
+                        window.location.href = "../html/Games.html";
+
+                    });
+            }
+        }else{
+            window.location.href = "../html/index.html";
         }
     });
 });
